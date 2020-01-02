@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h1>Retrieve Data from RealTime Database </h1>
+    <form id="form1">
+        <input type="number" id="id" />
+        <button type="submit">Get</button>
+        <p id="para">
+
+        </p>
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-functions.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
+
+
+<script>
+    
+    var firebaseConfig = {
+    apiKey: "AIzaSyDARF2GeC_hOur84YBYL8b4duAYakZ5GIY",
+    authDomain: "retrieve-ff6b0.firebaseapp.com",
+    databaseURL: "https://retrieve-ff6b0.firebaseio.com",
+    projectId: "retrieve-ff6b0",
+    storageBucket: "retrieve-ff6b0.appspot.com",
+    messagingSenderId: "267032523032",
+    appId: "1:267032523032:web:390cb2f2693d731bc36e6d",
+    measurementId: "G-3WH297XMJH"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+document.getElementById('form1').addEventListener('submit',submitForm);
+
+function getInputVal(id){
+    return document.getElementById(id).value;
+}
+firebase.functions().useFunctionsEmulator('http://localhost:5001');
+function submitForm(e){
+    e.preventDefault();
+    var getid = getInputVal("id");
+    let ret = firebase.functions().httpsCallable('ret');
+
+    let allPromises = Promise.all([
+        ret({id:getid})
+    ]).then(e => {
+        console.log(e);
+    });
+}
+
+
+
+
+
+</script>
+</html>
